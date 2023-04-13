@@ -1,15 +1,10 @@
-# Use an  official Python image as the base image
-FROM ubuntu:latest
+FROM python:3.9-slim
 
+WORKDIR /app
 
-RUN apt update
-RUN apt install python3 -y
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-# Set the working directory in the container
-WORKDIR /usr/app/src
+COPY app.py app.py
 
-
-COPY main.py ./
-
-# Run the command to start the app
-CMD ["python3", "./main.py"]
+CMD ["python", "app.py"]
