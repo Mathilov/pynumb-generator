@@ -17,7 +17,7 @@ redis_host = os.environ.get("REDIS_HOST", "redis")
 redis_port = int(os.environ.get("REDIS_PORT", 6379))
 
 # Creates a Redis client instance named cache using the host, port, and database number.
-cache = redis.Redis(host=redis_host, port=redis_port, db=0, password='testPassord')
+cache = redis.Redis(host=redis_host, port=redis_port, db=0)
 
 # constructs a connection string for the Azure Blob Storage.
 storage_account_name = os.getenv('storage_account_name')
