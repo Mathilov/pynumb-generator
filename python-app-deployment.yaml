@@ -37,53 +37,53 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-redis-app
+  name: python-all
 spec:
   selector:
     matchLabels:
-      app: python-redis-app
+      app: python-all
   replicas: 1
   template:
     metadata:
       labels:
-        app: python-redis-app
+        app: python-all
     spec:
       containers:
-        - name: python-redis-app
-          image: mathiasregistry.azurecr.io/python-redis-app:v2
+        - name: python-all
+          image: bacheloracr.azurecr.io/python-all:v6
           env:
             - name: REDIS_HOST
               value: redis
             - name: REDIS_PORT
               value: "6379"
       imagePullSecrets:
-        - name: acr-auth
+        - name: my-secret
 
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-reader-app
-spec:
-  selector:
-    matchLabels:
-      app: redis-reader-app
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: redis-reader-app
-    spec:
-      imagePullSecrets:
-        - name: acr-auth
-      containers:
-        - name: python-redis-app
-          image: mathiasregistry.azurecr.io/redis-reader-app:v3
-          env:
-            - name: REDIS_HOST
-              value: redis
-            - name: REDIS_PORT
-              value: "6379"
+#---
+#
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: redis-reader-app
+#spec:
+#  selector:
+#    matchLabels:
+#      app: redis-reader-app
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: redis-reader-app
+#    spec:
+#      imagePullSecrets:
+#        - name: acr-auth
+#      containers:
+#        - name: python-redis-app
+#          image: mathiasregistry.azurecr.io/redis-reader-app:v3
+#          env:
+#            - name: REDIS_HOST
+#              value: redis
+#            - name: REDIS_PORT
+#              value: "6379"
 
 
