@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Retrieves the Redis server host and port from the environment variables or set default values if they are not provided.
 redis_host = os.environ.get("REDIS_HOST", "redis")
-redis_port = int(os.environ.get("REDIS_PORT", 6379))
+redis_port = os.environ.get("REDIS_PORT", 6379)
 
 # Creates a Redis client instance named cache using the host, port, and database number.
 cache = redis.Redis(host=redis_host, port=redis_port, db=0)
