@@ -59,31 +59,5 @@ spec:
       imagePullSecrets:
         - name: my-secret
 
-#---
-#
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: redis-reader-app
-#spec:
-#  selector:
-#    matchLabels:
-#      app: redis-reader-app
-#  replicas: 1
-#  template:
-#    metadata:
-#      labels:
-#        app: redis-reader-app
-#    spec:
-#      imagePullSecrets:
-#        - name: acr-auth
-#      containers:
-#        - name: python-redis-app
-#          image: mathiasregistry.azurecr.io/redis-reader-app:v3
-#          env:
-#            - name: REDIS_HOST
-#              value: redis
-#            - name: REDIS_PORT
-#              value: "6379"
 
 
