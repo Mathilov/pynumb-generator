@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 # write to redis instance
 def write_random_numbers_to_redis():
     # Retrieves the Redis server host and port from the environment variables or set default values if they are not provided.
-    redis_host = os.environ.get("REDIS_HOST", "redis-service")
+    redis_host = os.environ.get("REDIS_HOST", "redis")
     redis_port_str = os.environ.get("REDIS_PORT", "6379")
     redis_port = int(redis_port_str.split(':')[-1]) if 'tcp://' in redis_port_str else int(redis_port_str)
 
