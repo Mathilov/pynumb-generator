@@ -11,17 +11,15 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 
-# constructs a connection string for the Azure Blob Storage.
-storage_account_name = os.getenv('storage_account_name')
-storage_account_key = os.getenv('storage_account_key')
-connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_account_name};AccountKey={storage_account_key};EndpointSuffix=core.windows.net"
+
 
 
 # write to redis instance
 def write_random_numbers_to_redis():
     # Retrieves the Redis server host and port from the environment variables or set default values if they are not provided.
-    redis_host = os.environ.get("REDIS_HOST", "redis")
-    redis_port = int(os.environ.get("REDIS_PORT", 6379))
+    redis_host = os.environ.get("REDIS_HOST", "redis-service")
+    redis_port_str = os.environ.get("REDIS_PORT", "6379")
+    redis_port = int(redis_port_str.split(':')[-1]) if 'tcp://' in redis_port_str else int(redis_port_str)
 
     # Creates a Redis client instance named cache using the host, port, and database number.
     cache = redis.Redis(host=redis_host, port=redis_port, db=0)
@@ -34,6 +32,12 @@ def write_random_numbers_to_redis():
 
 # write to blob
 def write_random_numbers_to_blob():
+
+    # constructs a connection string for the Azure Blob Storage.
+    storage_account_name = os.getenv('storage_account_name')
+    storage_account_key = os.getenv('storage_account_key')
+    connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_account_name};AccountKey={storage_account_key};EndpointSuffix=core.windows.net"
+
     # creates an instance of the BlobServiceClient
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
