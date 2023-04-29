@@ -15,6 +15,13 @@ spec:
       containers:
         - name: redis
           image: redis:6.2
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-pass
+                  key: redis-password
+          args: [ "--requirepass", "$(REDIS_PASSWORD)" ]
           ports:
             - containerPort: 6379
 
@@ -50,12 +57,17 @@ spec:
     spec:
       containers:
         - name: python-all
-          image: bacheloracr.azurecr.io/python-all:v6
+          image: bacheloracr.azurecr.io/app:latest
           env:
             - name: REDIS_HOST
               value: redis
             - name: REDIS_PORT
               value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-pass
+                  key: redis-password
       imagePullSecrets:
         - name: my-secret
 

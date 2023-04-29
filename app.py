@@ -16,13 +16,19 @@ logging.basicConfig(level=logging.INFO)
 
 # write to redis instance
 def write_random_numbers_to_redis():
-    # Retrieves the Redis server host and port from the environment variables or set default values if they are not provided.
+
+
+    # Retrieves the Redis server host and port from the environment variables set in the manifest file or set default values if they are not provided.
+
     redis_host = os.environ.get("REDIS_HOST", "redis")
     redis_port_str = os.environ.get("REDIS_PORT", "6379")
+    redis_password = os.environ.get("REDIS_PASSWORD", "")
     redis_port = int(redis_port_str.split(':')[-1]) if 'tcp://' in redis_port_str else int(redis_port_str)
 
     # Creates a Redis client instance named cache using the host, port, and database number.
-    cache = redis.Redis(host=redis_host, port=redis_port, db=0)
+    cache = redis.Redis(host=redis_host, port=redis_port, db=0, password=redis_password)
+
+
     while True:
         random_number = random.randint(1, 100)
         cache.rpush('random_numbers', random_number)
