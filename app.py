@@ -73,15 +73,16 @@ def write_random_numbers_to_blob():
         time.sleep(4)
 
 
-# This method provides a way to read values from the redis instance from a local system
-def read_from_redis_instance():
-    # Use port forwarding to be able to connect to the redis instance
-    redis_host = '127.0.0.1'
-    redis_port = 6379
+# This method provides a way to read values from the redis instance
+def read_from_redis():
+    numb=0
+    # use portforwarding and change host value to localhost to read locally
+    redis_host = os.environ.get("REDIS_HOST", "redis")
+    redis_port_str = os.environ.get("REDIS_PORT", "6379")
+    redis_port = int(redis_port_str.split(':')[-1]) if 'tcp://' in redis_port_str else int(redis_port_str)
 
     # Create a Redis client object
     r = redis.Redis(host=redis_host, port=redis_port, db=0)
-    numb = 0
     while True:
         # Retrieve hash values
         hash_key = 'key-' + str(numb)
@@ -90,9 +91,9 @@ def read_from_redis_instance():
         # Convert byte strings to proper data types
         hash_values = {key.decode(): value.decode() for key, value in hash_values.items()}
 
-        print(hash_values)
+        logging.info(f"fetched {hash_values} from redis")
 
-        time.sleep(4)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
