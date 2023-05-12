@@ -17,9 +17,9 @@ To run the application, the following prerequisites should be met:
 
 ## Configuration
 
-The application requires certain environment variables. These are predefined  based on the values selected when running the ApplicationdeploymentScript.ps1: https://github.com/MichalBerg99/azure-containerization-tools
+The application requires certain environment variables. These are predefined  based on the values selected when running the ApplicationdDploymentScript.ps1: https://github.com/MichalBerg99/azure-containerization-tools
 
-  * REDIS_HOST: The hostname or IP address of the Redis instance. If the read_from_redis method is runned the value should be localhost or 127.0.0.1.
+  * REDIS_HOST: The hostname or IP address of the Redis instance. If the read_from_redis method is runned locally the value should be localhost or 127.0.0.1.
   * REDIS_PORT: The port number on which the Redis instance is running.
   * STORAGE_ACCOUNT_CONNECTION_STRING: The connection string for the Azure storage account.
 
