@@ -57,7 +57,7 @@ spec:
     spec:
       containers:
         - name: python-all
-          image: bacheloracr.azurecr.io/app:latest
+          image: bacheloracr.azurecr.io/python-all:v7
           env:
             - name: REDIS_HOST
               value: redis
